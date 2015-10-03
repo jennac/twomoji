@@ -1,0 +1,53 @@
+.menu-bar {
+  padding-top: 50px;
+}
+
+.bg-light {
+  background-color: #ddd;
+}
+.bg-dark {
+  background-color: #aaa;
+}
+
+.tm-button {
+  font-size: 3em;
+  text-align: center;
+  line-height: 100%;
+  padding: 25px;
+}
+
+.tm-button.tm-big {
+  font-size: 6em;
+}
+
+.tm-button:hover {
+  background-color: #bbb;
+}
+
+.tm-button.tm-dark {
+  background-color: #aaa;
+}
+
+.tm-button.tm-dark:hover {
+  background-color: #999;
+}
+
+.left-emoji {
+  text-align: right;
+}
+
+.round-number {
+  font-size: 5em;
+}
+
+.file-uploader {
+  font-size: 6em;
+  text-align: center;
+  padding-top: 30%;
+}
+
+.tm-logo {
+  font-size: 5em;
+  text-align: center;
+
+}
