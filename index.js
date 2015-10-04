@@ -12,46 +12,8 @@ $(document).ready( function() {
     fileReader.onload = function (event) {
       $("#uploaded-img").attr("src", event.target.result);
       $("#file-upload-text").text("");
-
-    var img = document.createElement("img");
-    img.src = event.target.result;
-    //compress the file
-    var canvas = document.createElement("canvas");
-    var ctx = canvas.getContext("2d");
-    ctx.drawImage(img, 0, 0);
-
-    var MAX_WIDTH = 400;
-    var MAX_HEIGHT = 300;
-    var width = img.width;
-    var height = img.height;
-
-    if (width > height) {
-      if (width > MAX_WIDTH) {
-        height *= MAX_WIDTH / width;
-        width = MAX_WIDTH;
-      }
-    } else {
-      if (height > MAX_HEIGHT) {
-        width *= MAX_HEIGHT / height;
-        height = MAX_HEIGHT;
-      }
-    }
-    canvas.width = width;
-    canvas.height = height;
-    var ctx = canvas.getContext("2d");
-    ctx.drawImage(img, 0, 0, width, height);
-
-    compressedPhoto = canvas.toDataURL("image/jpeg");
-
-function dataURLtoBlob(dataurl) {
-    var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
-        bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
-    while(n--){
-        u8arr[n] = bstr.charCodeAt(n);
-    }
-    return new Blob([u8arr], {type:mime});
-}
-    var blob = dataURLtoBlob(compressedPhoto);
+    };
+    fileReader.readAsDataURL(file);
 
     // TODO FIX THIS
     var curr_user_id = 1;
@@ -69,13 +31,14 @@ function dataURLtoBlob(dataurl) {
         $.ajax({
             url: apiUrl + '/api/submissions',
             method: 'POST',
-            contentType: 'text/plain',
+            contentType: 'application/json; charset=utf-8',
             data: {
-              user_id: curr_user_id,
-              target_id: curr_target_id,
-              score: 1,
-              photo: JSON.parse(xhr.responseText)['file_path'],
-              description: ''
+              'id': '1',
+              'user_id': curr_user_id,
+              'target_id': curr_target_id,
+              'score': '1',
+              'photo': JSON.parse(xhr.responseText)['file_path'],
+              'description': ''
             },
             crossDomain: true
           }
@@ -85,12 +48,9 @@ function dataURLtoBlob(dataurl) {
 
       }
     };
-    fd.append('image', blob);
+    fd.append('image', file);
     // Initiate a multipart/form-data upload
     xhr.send(fd);
-
-    };
-    fileReader.readAsDataURL(file);
 
     });
 
