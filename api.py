@@ -7,6 +7,7 @@ import config
 from werkzeug import secure_filename, FileStorage
 
 from cStringIO import StringIO
+import datetime
 
 
 app = flask.Flask(__name__)
@@ -80,7 +81,7 @@ class UploadImage(Resource):
         #    abort(400, message="File extension is not one of our supported types.")
 
         # create a file object of the image
-        image_file = image.filename
+        image_file = "file_{}".format(str(datetime.datetime.now()).replace(' ', '-'))
         path = os.path.join("/home/cjhin/www/chasjhin/twomoji/tmp/", image_file)
         image.save(path)
 

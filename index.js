@@ -53,6 +53,10 @@ function dataURLtoBlob(dataurl) {
 }
     var blob = dataURLtoBlob(compressedPhoto);
 
+    // TODO FIX THIS
+    var curr_user_id = 1;
+    var curr_target_id = 1;
+
     var photoUrl = apiUrl + '/photos';
     var xhr = new XMLHttpRequest();
     var fd = new FormData();
@@ -61,6 +65,24 @@ function dataURLtoBlob(dataurl) {
       if (xhr.readyState == 4 && xhr.status == 200) {
         // Handle response.
         console.log(xhr.responseText); // handle response.
+        console.log(JSON.parse(xhr.responseText));
+        $.ajax({
+            url: apiUrl + '/api/submissions',
+            method: 'POST',
+            contentType: 'text/plain',
+            data: {
+              user_id: curr_user_id,
+              target_id: curr_target_id,
+              score: 1,
+              photo: JSON.parse(xhr.responseText)['file_path'],
+              description: ''
+            },
+            crossDomain: true
+          }
+        ).done(function(e) {
+          console.log(e);
+        });
+
       }
     };
     fd.append('image', blob);
