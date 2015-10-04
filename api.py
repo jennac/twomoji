@@ -8,12 +8,14 @@ from werkzeug import secure_filename, FileStorage
 
 from cStringIO import StringIO
 import datetime
+import psycopg2
+import json
 
 
 app = flask.Flask(__name__)
 app.config['DEBUG'] = config.DEBUG
 app.config['SQLALCHEMY_DATABASE_URI'] = config.SQLALCHEMY_DATABASE_URI
-db = flask.ext.sqlalchemy.SQLAlchemy
+#db = flask.ext.sqlalchemy.SQLAlchemy
 db = flask.ext.sqlalchemy.SQLAlchemy(app)
 
 
@@ -87,6 +89,32 @@ class UploadImage(Resource):
 
         return {'file_path': path}
 
+from config import DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD
+
+class SubmissionSave(Resource):
+    put_parser = reqparse.RequestParser()
+    put_parser.add_argument('photo', required=True, type=str)
+    put_parser.add_argument('user_id', required=True, type=int)
+    put_parser.add_argument('target_id', required=True, type=int)
+    put_parser.add_argument('score', required=False, type=int, default=0)
+    put_parser.add_argument('description', required=False, type=str, default='')
+
+    def post(self):
+        args = self.put_parser.parse_args()
+        con = psycopg2.connect(host=DB_HOST, database=DB_NAME,
+                               user=DB_USERNAME, password=DB_PASSWORD)
+        cur = con.cursor()
+
+        query = 'INSERT INTO submissions (user_id, target_id, score, description, photo) VALUES ({}, {}, {}, {}, {});'.format(args['user_id'], args['target_id'], args['score'], args['description'], args['photo'])
+        print query
+        try:
+            cur.execute(query)
+            con.commit()
+            return { 'success': True }
+        except:
+            return { 'success': False }
+
+
 manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
 
 targets_includes = ['id', 'emoji_pair', 'weight', 'status', 'submissions']
@@ -98,5 +126,6 @@ manager.create_api(UserTargets, methods=['GET', 'POST', 'PATCH'])
 
 api2 = FlaskRestfulAPI(app)
 api2.add_resource(UploadImage, '/photos')
+api2.add_resource(SubmissionSave, '/submission')
 
 app.run()
