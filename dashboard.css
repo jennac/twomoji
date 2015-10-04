@@ -20,11 +20,14 @@
 
  h3 {
    color: #fff;
- background-color: red;
+   background-color: red;
  }
 #logo {
   width: 50%;
   height: 25%;
   display: block;
   margin: 0 auto;
+
+.round-emojis {
+ font-size: 4em;
 }
