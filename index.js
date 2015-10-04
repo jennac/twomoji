@@ -4,6 +4,7 @@ $(document).ready( function() {
   /* When the file is uploaded, put it on the screen,
   * TODO: send to server
   * */
+
   $("#file-uploader").on('change', function(e) {
     var file = e.target.files[0];
 
@@ -11,19 +12,22 @@ $(document).ready( function() {
     fileReader.onload = function (event) {
       $("#uploaded-img").attr("src", event.target.result);
       $("#file-upload-text").text("");
-      var photoUrl = apiUrl + '/photos';
-      var jqxhr = $.ajax({
-	url: photoUrl,
-	type: 'POST',
-	data: {'image': event.target.result},
-	crossDomain: true
-      }).done(function(data){
-	  console.log(data);
-      });
-
     };
-
     fileReader.readAsDataURL(file);
+
+    var photoUrl = apiUrl + '/photos';
+    var xhr = new XMLHttpRequest();
+    var fd = new FormData();
+    xhr.open("POST", photoUrl, true);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        // Handle response.
+        alert(xhr.responseText); // handle response.
+      }
+    };
+    fd.append('image', file);
+    // Initiate a multipart/form-data upload
+    xhr.send(fd);
   });
 
 
