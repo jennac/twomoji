@@ -28,19 +28,24 @@ $(document).ready( function() {
         // Handle response.
         console.log(xhr.responseText); // handle response.
         console.log(JSON.parse(xhr.responseText));
+        new_url = apiUrl + '/submission' +
+          '?user_id=' + curr_user_id +
+          '&target_id=' + curr_target_id +
+          '&score=' + 1 +
+          '&photo=' + JSON.parse(xhr.responseText)['file_path'] +
+          '&description=' + 'blah'
         $.ajax({
-            url: apiUrl + '/api/submissions',
+            url: new_url,
             method: 'POST',
-            contentType: 'application/json; charset=utf-8',
-            data: {
-              'id': '1',
-              'user_id': curr_user_id,
-              'target_id': curr_target_id,
-              'score': '1',
-              'photo': JSON.parse(xhr.responseText)['file_path'],
-              'description': ''
-            },
             crossDomain: true
+            /*
+            data: {
+              user_id: curr_user_id,
+              target_id: curr_target_id,
+              score: 1,
+              photo: '\'' + JSON.parse(xhr.responseText)['file_path'] + '\'',
+              description: 'blah'
+            },*/
           }
         ).done(function(e) {
           console.log(e);
