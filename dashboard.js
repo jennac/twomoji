@@ -15,6 +15,12 @@ function doPoll(){
     var targets = data['objects'];
     // set the current round emojis
     var currentTarget = $.grep(targets, function(e){return e['status'] == "1"})[0];
+    if currentRound != currentTarget['id'] {
+      submissions = []
+      $("#user-1-submission-pic").attr("src", "")
+      $("#user-2-submission-pic").attr("src", "")
+      $("#user-3-submission-pic").attr("src", "")
+    }
     var currentRound = currentTarget['id'];
     $("#currentRound").html("Round " + currentRound);
     $("#current-emoji-pair").html(currentTarget['emoji_pair']);
