@@ -16,7 +16,7 @@ $(document).ready( function() {
     fileReader.readAsDataURL(file);
 
     // TODO FIX THIS
-    var curr_user_id = 1;
+    var curr_user_id = Math.floor((Math.random() * 6) + 1);
     var curr_target_id = 1;
 
     var photoUrl = apiUrl + '/photos';
