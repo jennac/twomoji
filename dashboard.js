@@ -16,19 +16,20 @@ function doPoll(){
     // set the current round emojis
     var currentTarget = $.grep(targets, function(e){return e['status'] == "1"})[0];
     var currentRound = currentTarget['id'];
-    if currentRound <=3 {
+    console.log()
+    if (currentRound <= 3) {
       //hide 4 and 5
-      $("#round-4-emojis").hide()
-      $("#round-5-emojis").hide()
+      $("#round-4-emojis").hide();
+      $("#round-5-emojis").hide();
     }
-    else if currentRound <=4 {
+    else if (currentRound <=4) {
       //hide 5
-      $("#round-4-emojis").show()
-      $("#round-5-emojis").hide()
+      $("#round-4-emojis").show();
+      $("#round-5-emojis").hide();
     }
     else {
-      $("#round-4-emojis").show()
-      $("#round-5-emojis").show()
+      $("#round-4-emojis").show();
+      $("#round-5-emojis").show();
 
     }
     $("#currentRound").html("Round " + currentRound);
