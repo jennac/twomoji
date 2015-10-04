@@ -79,14 +79,7 @@ function doPoll(){
     var i = 0;
     var userToPoints = {}
     for(i=0; i < users.length; i++) {
-      userToPoints[users[i]['username']] = 0;
-      var user_targets = users[i]['usertargets'];
-      var j=0;
-      var points = 0;
-      for(j=0; j < user_targets.length; j++) {
-        points = points + user_targets['points'];
-      }
-      userToPoints[users[i]['username']] = points;
+      userToPoints[users[i]['username']] = users[i]['points']
     }
     var tuples = [];
 
