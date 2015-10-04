@@ -1,8 +1,10 @@
 .uploaded-image {
   max-width: 100%;
+  max-height: 200px;
+}
+.user-image {
+  max-width: 100%;
   max-height: 100%;
-  height: 50px;
-  width: 50px;
 }
 /*
 .emoji-wrapper {
@@ -27,6 +29,7 @@
   height: 25%;
   display: block;
   margin: 0 auto;
+}
 
 .round-emojis {
  font-size: 4em;
