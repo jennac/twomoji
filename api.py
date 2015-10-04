@@ -105,7 +105,7 @@ class SubmissionSave(Resource):
                                user=DB_USERNAME, password=DB_PASSWORD)
         cur = con.cursor()
 
-        query = 'INSERT INTO submissions (user_id, target_id, score, description, photo) VALUES ({}, {}, {}, {}, {});'.format(args['user_id'], args['target_id'], args['score'], args['description'], args['photo'])
+        query = "INSERT INTO submissions (user_id, target_id, score, description, photo) VALUES ({}, {}, {}, '{}', '{}');".format(args['user_id'], args['target_id'], args['score'], args['description'], args['photo'])
         print query
         try:
             cur.execute(query)
