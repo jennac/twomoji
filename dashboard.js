@@ -16,7 +16,7 @@ function doPoll(){
     // set the current round emojis
     var currentTarget = $.grep(targets, function(e){return e['status'] == "1"})[0];
     var currentRound = currentTarget['id'];
-    $("currentRound").html("Round " + currentRound);
+    $("#currentRound").html("Round " + currentRound);
     $("#current-emoji-pair").html(currentTarget['emoji_pair']);
     // set the images for the other rounds
     for(i=0; i < targets.length; i++) {
