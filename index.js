@@ -15,6 +15,34 @@ $(document).ready( function() {
     };
     fileReader.readAsDataURL(file);
 
+    //compress the file
+    var canvas = document.createElement("canvas");
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(file, 0, 0);
+
+    var MAX_WIDTH = 800;
+    var MAX_HEIGHT = 600;
+    var width = file.width;
+    var height = file.height;
+
+    if (width > height) {
+      if (width > MAX_WIDTH) {
+        height *= MAX_WIDTH / width;
+        width = MAX_WIDTH;
+      }
+    } else {
+      if (height > MAX_HEIGHT) {
+        width *= MAX_HEIGHT / height;
+        height = MAX_HEIGHT;
+      }
+    }
+    canvas.width = width;
+    canvas.height = height;
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(file, 0, 0, width, height);
+
+    compressedPhoto = canvas.toDataURL("image/jpeg");
+
     var photoUrl = apiUrl + '/photos';
     var xhr = new XMLHttpRequest();
     var fd = new FormData();
@@ -25,7 +53,7 @@ $(document).ready( function() {
         console.log(xhr.responseText); // handle response.
       }
     };
-    fd.append('image', file);
+    fd.append('image', compressedPhoto);
     // Initiate a multipart/form-data upload
     xhr.send(fd);
   });
