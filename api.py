@@ -6,6 +6,8 @@ import os
 import config
 from werkzeug import secure_filename, FileStorage
 
+from cStringIO import StringIO
+
 
 app = flask.Flask(__name__)
 app.config['DEBUG'] = config.DEBUG
@@ -57,29 +59,32 @@ class FileStorageArgument(reqparse.Argument):
     all cases where file uploads need to be handled."""
     
     def convert(self, value, op):
+        print self.type
         if self.type is FileStorage:
             return value
 
         super(FileStorageArgument, self).convert(*args, **kwargs)
 
 class UploadImage(Resource):
-    put_parser = reqparse.RequestParser(argument_class=FileStorageArgument)
-    put_parser.add_argument('image', required=True, type=FileStorage, location='files')
+    #put_parser = reqparse.RequestParser(argument_class=FileStorageArgument)
+    put_parser = reqparse.RequestParser()
+    put_parser.add_argument('image', required=False, type=FileStorage, location='files')
 
     def post(self):
         args = self.put_parser.parse_args()
         image = args['image']
 
         # check logo extension
-        extension = image.filename.rsplit('.', 1)[1].lower()
-        if '.' in image.filename and not extension in app.config['ALLOWED_EXTENSIONS']:
-            abort(400, message="File extension is not one of our supported types.")
+        #extension = image.filename.rsplit('.', 1)[1].lower()
+        #if '.' in image.filename and not extension in app.config['ALLOWED_EXTENSIONS']:
+        #    abort(400, message="File extension is not one of our supported types.")
 
         # create a file object of the image
-        image_file = StringIO()
-        image.save(image_file)
+        image_file = image.filename
+        path = os.path.join("/home/cjhin/www/chasjhin/twomoji/tmp/", image_file)
+        image.save(path)
 
-        return {'logo_url': logo_url}
+        return {'file_path': path}
 
 manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
 

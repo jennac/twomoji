@@ -44,15 +44,17 @@
       <div id="emoji-pair"></div>
     </div>
   </div>
-  <div class="row bg-dark file-container" style="height:45%;">
-    <label class="file-container">
-      <span id="file-upload-text">upload image</span>
-      <input type='file' id='file-uploader' name='files'>
-    </label>
-    <img id="uploaded-img"></img>
-  </div>
-  <div class="row tm-button tm-big" style="height:10%;">
-    submit
-  </div>
+  <form id="file-upload-form">
+    <div class="row bg-dark file-container" style="height:45%;">
+      <label class="file-container">
+        <span id="file-upload-text">upload image</span>
+        <input type='file' id='file-uploader' name='files'>
+      </label>
+      <img id="uploaded-img"></img>
+    </div>
+    <div class="row tm-button tm-big" style="height:10%;">
+      <input type="submit" value="submit">
+    </div>
+  </form>
 </div>
 </body>
