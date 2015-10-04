@@ -12,18 +12,18 @@ $(document).ready( function() {
     fileReader.onload = function (event) {
       $("#uploaded-img").attr("src", event.target.result);
       $("#file-upload-text").text("");
-    };
-    fileReader.readAsDataURL(file);
 
+    var img = document.createElement("img");
+    img.src = event.target.result;
     //compress the file
     var canvas = document.createElement("canvas");
     var ctx = canvas.getContext("2d");
-    ctx.drawImage(file, 0, 0);
+    ctx.drawImage(img, 0, 0);
 
-    var MAX_WIDTH = 800;
-    var MAX_HEIGHT = 600;
-    var width = file.width;
-    var height = file.height;
+    var MAX_WIDTH = 80;
+    var MAX_HEIGHT = 60;
+    var width = img.width;
+    var height = img.height;
 
     if (width > height) {
       if (width > MAX_WIDTH) {
@@ -39,9 +39,19 @@ $(document).ready( function() {
     canvas.width = width;
     canvas.height = height;
     var ctx = canvas.getContext("2d");
-    ctx.drawImage(file, 0, 0, width, height);
+    ctx.drawImage(img, 0, 0, width, height);
 
     compressedPhoto = canvas.toDataURL("image/jpeg");
+
+function dataURLtoBlob(dataurl) {
+    var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+    while(n--){
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new Blob([u8arr], {type:mime});
+}
+    var blob = dataURLtoBlob(compressedPhoto);
 
     var photoUrl = apiUrl + '/photos';
     var xhr = new XMLHttpRequest();
@@ -53,10 +63,14 @@ $(document).ready( function() {
         console.log(xhr.responseText); // handle response.
       }
     };
-    fd.append('image', compressedPhoto);
+    fd.append('image', blob);
     // Initiate a multipart/form-data upload
     xhr.send(fd);
-  });
+
+    };
+    fileReader.readAsDataURL(file);
+
+    });
 
 
   var jqxhr = $.ajax({
