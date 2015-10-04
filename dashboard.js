@@ -131,7 +131,7 @@ function doPoll(){
         case "jake":
           $(user_rank_id).attr("src", "jake.jpg");
           break;
-        case "mary beth":
+        case "marybeth":
           $(user_rank_id).attr("src", "marybeth.jpg");
           break;
         default:
