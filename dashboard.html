@@ -1,278 +1,261 @@
-<!-- Latest compiled and minified CSS -->
+<head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="dashboard.css">
+<script src="dashboard.js"></script>
 
+</head>
+<body>
 <div class="container-fluid">
   <div class="row">
-    <div class="col-xs-4">
+    <div id="logoDiv">
+      <div class='inner-logo-div'>
+        <img src="logo.png" id="logo"/>
+    </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
       <div class="row">
-        <div class="col-xs-6">
-          <img src="jfa" alt="currentRoundEmoji1"/>
-        </div>
-        <div class="col-xs-6">
-          <img src="jfa" alt="currentRoundEmoji2"/>
+        <div class="col-md-12">
+          <div class="emoji-wrapper">
+            <div id="current-emoji-pair"></div>
+          </div>
         </div>
       </div>
       <div class="row">
-        <div class="col-xs-6">
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
           <h5> Round 1 </h5>
         </div>
-        <div class="col-xs-3">
-          <img src="round1emojis" alt="round1emojis"/>
-        </div>
-        <div class="col-xs-3">
-          <img src="ja" alt="round1emojis2"/>
+        <div class="col-md-6">
+          <div id="round-1-emojis" class="round-emojis"></div>
         </div>
       </div>
       <div class="row">
-        <div class="col-xs-6">
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
           <h5> Round 2 </h5>
         </div>
-        <div class="col-xs-3">
-          <img src="round1emojis" alt="round1emojis"/>
-        </div>
-        <div class="col-xs-3">
-          <img src="ja" alt="round1emojis2"/>
+        <div class="col-md-6">
+          <div id="round-2-emojis" class="round-emojis"></div>
         </div>
       </div>
       <div class="row">
-        <div class="col-xs-6">
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
           <h5> Round 3 </h5>
         </div>
-        <div class="col-xs-3">
-          <img src="round1emojis" alt="round1emojis"/>
-        </div>
-        <div class="col-xs-3">
-          <img src="ja" alt="round1emojis2"/>
+        <div class="col-md-6">
+          <div id="round-3-emojis" class="round-emojis"></div>
         </div>
       </div>
       <div class="row">
-        <div class="col-xs-6">
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
           <h5> Round 4 </h5>
         </div>
-        <div class="col-xs-3">
-          <img src="round1emojis" alt="round1emojis"/>
-        </div>
-        <div class="col-xs-3">
-          <img src="ja" alt="round1emojis2"/>
+        <div class="col-md-6">
+          <div id="round-4-emojis" class="round-emojis"></div>
         </div>
       </div>
       <div class="row">
-        <div class="col-xs-6">
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
           <h5> Round 5 </h5>
         </div>
-        <div class="col-xs-3">
-          <img src="round1emojis" alt="round1emojis"/>
-        </div>
-        <div class="col-xs-3">
-          <img src="ja" alt="round1emojis2"/>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-6">
-          <h5> Round 6 </h5>
-        </div>
-        <div class="col-xs-3">
-          <img src="round1emojis" alt="round1emojis"/>
-        </div>
-        <div class="col-xs-3">
-          <img src="ja" alt="round1emojis2"/>
+        <div class="col-md-6">
+          <div id="round-5-emojis" class="round-emojis"></div>
         </div>
       </div>
     </div>
       
-    <div class="col-xs-4">
+    <div class="col-md-4">
       <div class="row">
-        <h3> Round 1 </h3>
+        <h3 id="currentRound"> Round 1 </h3>
       </div>
       <div class="row">
-        <div class="col-xs-2">
-          <img src="fajk" alt="userimage"/>
+        <div class="col-md-4">
+          <img src="chas.jpg" alt="userimage" id="user-1-submission-pic" class="user-image"/>
         </div>
-        <div class="col-xs-8">
-          <img src="jfa" alt="userscurrentroundimage"/>
+        <div class="col-md-6">
+          <img src="" id="user-1-emojis" class="uploaded-image"/>
         </div>
-        <div class="col-xs-2">
+        <div class="col-md-2">
           +987
         </div>
       </div>
       <div class="row">
-        <div class="col-xs-2">
-          <img src="fajk" alt="userimage"/>
+        <div class="col-md-4">
+          <img src="chas.jpg" alt="userimage" id="user-3-submission-pic" class="user-image"/>
         </div>
-        <div class="col-xs-8">
-          <img src="jfa" alt="userscurrentroundimage"/>
+        <div class="col-md-6">
+          <img src="" id="user-3-emojis" class="uploaded-image"/>
         </div>
-        <div class="col-xs-2">
-          +987
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-2">
-          <img src="fajk" alt="userimage"/>
-        </div>
-        <div class="col-xs-8">
-          <img src="jfa" alt="userscurrentroundimage"/>
-        </div>
-        <div class="col-xs-2">
-          +987
+        <div class="col-md-2">
+          +543
         </div>
       </div>
       <div class="row">
-        <div class="col-xs-2">
-          <img src="fajk" alt="userimage"/>
+        <div class="col-md-4">
+          <img src="chas.jpg" alt="userimage" id="user-5-submission-pic" class="user-image"/>
         </div>
-        <div class="col-xs-8">
-          <img src="jfa" alt="userscurrentroundimage"/>
+        <div class="col-md-6">
+          <img src="" id="user-5-emojis" class="uploaded-image"/>
         </div>
-        <div class="col-xs-2">
-          +987
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-2">
-          <img src="fajk" alt="userimage"/>
-        </div>
-        <div class="col-xs-8">
-          <img src="jfa" alt="userscurrentroundimage"/>
-        </div>
-        <div class="col-xs-2">
-          +987
+        <div class="col-md-2">
+          +99
         </div>
       </div>
       <div class="row">
-        <div class="col-xs-3">
-          Snail
+        <div class="col-md-3">
+          <img src="snail.png" style="height: 50px; width: 50px;"/>
         </div>
-        <div class="col-xs-3">
-          <img src="ja" alt="snail1"/>
+        <div class="col-md-3">
+          <img src="harper.jpeg" alt="snail1" class="uploaded-image"/>
         </div>
-        <div class="col-xs-3">
-          <img src="ja" alt="snail2"/>
+        <div class="col-md-3">
+          <img src="tricia.jpg" alt="snail2" class="uploaded-image"/>
         </div>
-        <div class="col-xs-3">
-          <img src="ja" alt="snail3"/>
+        <div class="col-md-3">
+          <img src="kristen.jpeg" alt="snail3" class="uploaded-image"/>
         </div>
       </div>
     </div>
-    <div class="col-xs-4">
+
+    <div class="col-md-4">
       <div class="row">
         <h3> Rankings </h3>
       </div>
       <div class="row">
-        <div class="col-xs-2">
-          <img src="fjak" alt="userinfirst"/>
+        <div class="col-md-4">
+          <img src="chas.jpg" alt="userinfirst" id="user-1-place-image" class="uploaded-image"/>
         </div>
-        <div class="col-xs-4">
-          Username
+        <div class="col-md-4">
+          <div id="user-1-place-username">chas</div>
         </div>
-        <div class="col-xs-2">
-          1342
+        <div class="col-md-2">
+          <div id="user-1-place-score">999</div>
         </div>
-        <div class="col-xs-2">
+        <div class="col-md-2">
           <button class="btn btn-default"> Ready </button>
         </div>
       </div>
       <div class="row">
-        <div class="col-xs-2">
-          <img src="fjak" alt="userinfirst"/>
+        <div class="col-md-4">
+          <img src="chas.jpg" alt="userinfirst" id="user-2-place-image" class="uploaded-image"/>
         </div>
-        <div class="col-xs-4">
-          Username
+        <div class="col-md-4">
+          <div id="user-2-place-username">chas</div>
         </div>
-        <div class="col-xs-2">
-          1342
+        <div class="col-md-2">
+          <div id="user-2-place-score">888</div>
         </div>
-        <div class="col-xs-2">
+        <div class="col-md-2">
           <button class="btn btn-default"> Ready </button>
         </div>
       </div>
       <div class="row">
-        <div class="col-xs-2">
-          <img src="fjak" alt="userinfirst"/>
+        <div class="col-md-4">
+          <img src="chas.jpg" alt="userinfirst" id="user-3-place-image" class="uploaded-image"/>
         </div>
-        <div class="col-xs-4">
-          Username
+        <div class="col-md-4">
+          <div id="user-3-place-username">chas</div>
         </div>
-        <div class="col-xs-2">
-          1342
+        <div class="col-md-2">
+          <div id="user-3-place-score">777</div>
         </div>
-        <div class="col-xs-2">
+        <div class="col-md-2">
           <button class="btn btn-default"> Ready </button>
         </div>
       </div>
       <div class="row">
-        <div class="col-xs-2">
-          <img src="fjak" alt="userinfirst"/>
+        <div class="col-md-4">
+          <img src="chas.jpg" alt="userinfirst" id="user-4-place-image" class="uploaded-image"/>
         </div>
-        <div class="col-xs-4">
-          Username
+        <div class="col-md-4">
+          <div id="user-4-place-username">chas</div>
         </div>
-        <div class="col-xs-2">
-          1342
+        <div class="col-md-2">
+          <div id="user-4-place-score">665</div>
         </div>
-        <div class="col-xs-2">
+        <div class="col-md-2">
           <button class="btn btn-default"> Ready </button>
         </div>
       </div>
       <div class="row">
-        <div class="col-xs-2">
-          <img src="fjak" alt="userinfirst"/>
+        <div class="col-md-4">
+          <img src="chas.jpg" alt="userinfirst" id="user-5-place-image" class="uploaded-image"/>
         </div>
-        <div class="col-xs-4">
-          Username
+        <div class="col-md-4">
+          <div id="user-5-place-username">chas</div>
         </div>
-        <div class="col-xs-2">
-          1342
+        <div class="col-md-2">
+          <div id="user-5-place-score">555</div>
         </div>
-        <div class="col-xs-2">
+        <div class="col-md-2">
           <button class="btn btn-default"> Ready </button>
         </div>
       </div>
       <div class="row">
-        <div class="col-xs-2">
-          <img src="fjak" alt="userinfirst"/>
+        <div class="col-md-4">
+          <img src="harper.jpeg" alt="userinfirst" class="uploaded-image"/>
         </div>
-        <div class="col-xs-4">
-          Username
+        <div class="col-md-4">
+          harper
         </div>
-        <div class="col-xs-2">
-          1342
+        <div class="col-md-2">
+          0
         </div>
-        <div class="col-xs-2">
+        <div class="col-md-2">
           <button class="btn btn-default"> Ready </button>
         </div>
       </div>
       <div class="row">
-        <div class="col-xs-2">
-          <img src="fjak" alt="userinfirst"/>
+        <div class="col-md-4">
+          <img src="tricia.jpg" alt="userinfirst" class="uploaded-image"/>
         </div>
-        <div class="col-xs-4">
-          Username
+        <div class="col-md-4">
+          tricia
         </div>
-        <div class="col-xs-2">
-          1342
+        <div class="col-md-2">
+          0
         </div>
-        <div class="col-xs-2">
+        <div class="col-md-2">
           <button class="btn btn-default"> Ready </button>
         </div>
       </div>
       <div class="row">
-        <div class="col-xs-2">
-          <img src="fjak" alt="userinfirst"/>
+        <div class="col-md-4">
+          <img src="kristen.jpeg" alt="userinfirst" class="uploaded-image"/>
         </div>
-        <div class="col-xs-4">
-          Username
+        <div class="col-md-4">
+          kristen
         </div>
-        <div class="col-xs-2">
-          1342
+        <div class="col-md-2">
+          0
         </div>
-        <div class="col-xs-2">
+        <div class="col-md-2">
+          <button class="btn btn-default"> Ready </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <img src="sonia.jpeg" alt="userinfirst" class="uploaded-image"/>
+        </div>
+        <div class="col-md-4">
+          sonia
+        </div>
+        <div class="col-md-2">
+          0
+        </div>
+        <div class="col-md-2">
           <button class="btn btn-default"> Ready </button>
         </div>
       </div>
     </div>
   </div>
 </div>
+</body>
