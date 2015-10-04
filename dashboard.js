@@ -1,5 +1,8 @@
 $(document).ready( function() {
+  doPoll()
+});
 
+function doPoll(){
   var apiUrl = "http://twomoji-api.chasjhin.com/api";
   var targetUrl = apiUrl + "/targets";
   var jqxhr = $.ajax({
@@ -12,6 +15,7 @@ $(document).ready( function() {
     var targets = data['objects'];
     // set the current round emojis
     var currentTarget = $.grep(targets, function(e){return e['status'] == "1"})[0];
+    console.log(data)
     var currentRound = currentTarget['id'];
     $("currentRound").html("Round " + currentRound);
     $("#current-emoji-pair").html(currentTarget['emoji_pair']);
@@ -21,12 +25,14 @@ $(document).ready( function() {
       var id_class = "round-" + (i + 1) + "-emojis";
       $("#" + id_class).html(target_emojis);
     }
-    var submissions = data['objects']['submissions'];
-    // set the images each user
-    // only top 5
-    for(i=0; i < 5; i++) {
-      var user_emojis = targets[i]['emoji_pair'];
+    var submissions = targets['submissions'];
+    console.log(submissions)
+    // set the submissions emoji each user
+    // only will do top 5 cause only 5 images to update
+    for(i=0; i < submissions.length; i++) {
+      var user_emojis = submissions[i]['emoji_pair'];
       var emoji_id_class = "#user-" + (i + 1) + "-emojis";
+      $(emoji_id_class).html(user_emojis)
       var username = targets[i]['username'];
       var user_pic_id_class = "#user-" + (i + 1) + "-submission-pic";
       switch (username) {
@@ -51,7 +57,6 @@ $(document).ready( function() {
         default:
           break;
       }
-      $(emoji_id_class).html(user_emojis)
     }
   })
   .fail(function() {
@@ -122,5 +127,7 @@ $(document).ready( function() {
           break;
       }
     }
+    // setTimeout(doPoll, 5000)
   })
-});
+    
+}
