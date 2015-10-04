@@ -1,5 +1,5 @@
 $(document).ready( function() {
-  var apiUrl = "http://twomoji-api.chasjhin.com/";
+  var apiUrl = "http://twomoji-api.chasjhin.com";
   var targetUrl = apiUrl + "/api/targets";
   /* When the file is uploaded, put it on the screen,
   * TODO: send to server
