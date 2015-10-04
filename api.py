@@ -127,7 +127,7 @@ class SubmissionSave(Resource):
             points_i_guess = "UPDATE users SET points = {} WHERE id = {};".format(points, args['user_id'])
             cur.execute(points_i_guess)
             con.commit()
-        if user_count = 4:
+        if user_count == 4:
             next_round_one = "UPDATE targets SET status = 0 WHERE id={};".format(args['target_id'])
             cur.execute(next_round_one)
             next_round_id = args['target_id'] + 1
