@@ -22,6 +22,7 @@ db = flask.ext.sqlalchemy.SQLAlchemy(app)
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.Unicode, unique=True)
+    points = db.Column(db.Integer)
     usertargets = db.relationship('UserTargets', backref=db.backref('users'))
 
 
@@ -77,12 +78,6 @@ class UploadImage(Resource):
         args = self.put_parser.parse_args()
         image = args['image']
 
-        # check logo extension
-        #extension = image.filename.rsplit('.', 1)[1].lower()
-        #if '.' in image.filename and not extension in app.config['ALLOWED_EXTENSIONS']:
-        #    abort(400, message="File extension is not one of our supported types.")
-
-        # create a file object of the image
         image_file = "file_{}".format(str(datetime.datetime.now()).replace(' ', '-'))
         path = os.path.join("/home/cjhin/www/chasjhin/twomoji/tmp/", image_file)
         image.save(path)
@@ -91,11 +86,12 @@ class UploadImage(Resource):
 
 from config import DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD
 
+
 class SubmissionSave(Resource):
     put_parser = reqparse.RequestParser()
     put_parser.add_argument('photo', required=True, type=str)
     put_parser.add_argument('user_id', required=True, type=int)
-    put_parser.add_argument('target_id', required=True, type=int)
+    put_parser.add_argument('target_id', required=False, type=int)
     put_parser.add_argument('score', required=False, type=int, default=0)
     put_parser.add_argument('description', required=False, type=str, default='')
 
@@ -106,14 +102,39 @@ class SubmissionSave(Resource):
         cur = con.cursor()
 
         query = "INSERT INTO submissions (user_id, target_id, score, description, photo) VALUES ({}, {}, {}, '{}', '{}');".format(args['user_id'], args['target_id'], args['score'], args['description'], args['photo'])
-        print query
-        try:
-            cur.execute(query)
-            con.commit()
-            return { 'success': True }
-        except:
-            return { 'success': False }
+        cur.execute(query)
+        con.commit()
 
+        user_count_sql = "SELECT COUNT(*) FROM submissions WHERE target_id = {};".format(args['target_id'])
+        cur.execute(user_count_sql)
+        user_count = int(cur.fetchone()[0])
+    
+        user_points_sql = "SELECT points FROM users WHERE id = {}".format(args['user_id'])
+        cur.execute(user_points_sql)
+        user_points = int(cur.fetchone()[0])
+        if user_count ==  1:
+            points = user_points + 945
+            most_points = "UPDATE users SET points = {} WHERE id = {};".format(points, args['user_id'])
+            cur.execute(most_points)
+            con.commit()
+        if user_count == 2:
+            points = user_points + 673
+            more_points = "UPDATE users SET points = {} WHERE id = {};".format(points, args['user_id'])
+            cur.execute(more_points)
+            con.commit()
+        if user_count == 3:
+            points = user_points + 1
+            points_i_guess = "UPDATE users SET points = {} WHERE id = {};".format(points, args['user_id'])
+            cur.execute(points_i_guess)
+            con.commit()
+            next_round_one = "UPDATE targets SET status = 0 WHERE id={};".format(args['target_id'])
+            cur.execute(next_round_one)
+            next_round_id = args['target_id'] + 1
+            next_round_two = "UPDATE targets SET status = 1 WHERE id={};".format(next_round_id)
+            cur.execute(next_round_two)
+            con.commit()
+            
+        return { 'success': True }
 
 manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
 
@@ -129,3 +150,4 @@ api2.add_resource(UploadImage, '/photos')
 api2.add_resource(SubmissionSave, '/submission')
 
 app.run()
+
