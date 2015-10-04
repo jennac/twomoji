@@ -3,9 +3,11 @@
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="index.css">
+<script src="index.js"></script>
 </head>
 
 <body>
@@ -47,9 +49,10 @@
   </div>
   <div class="row bg-dark file-container" style="height:45%;">
     <label class="file-container">
-      upload image
+      <span id="file-upload-text">upload image</span>
       <input type='file' id='file-uploader' name='files'>
     </label>
+    <img id="uploaded-img"></img>
   </div>
   <div class="row tm-button tm-big" style="height:10%;">
     submit
