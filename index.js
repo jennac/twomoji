@@ -20,8 +20,8 @@ $(document).ready( function() {
     var ctx = canvas.getContext("2d");
     ctx.drawImage(img, 0, 0);
 
-    var MAX_WIDTH = 80;
-    var MAX_HEIGHT = 60;
+    var MAX_WIDTH = 400;
+    var MAX_HEIGHT = 300;
     var width = img.width;
     var height = img.height;
 
