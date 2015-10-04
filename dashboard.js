@@ -129,7 +129,7 @@ function doPoll(){
           break;
       }
     }
-    // setTimeout(doPoll, 5000)
+    setTimeout(doPoll, 5000)
   })
     
 }
