@@ -70,7 +70,7 @@ function pollEverything () {
     var currentTarget = $.grep(targets, function(e){return e['status'] == "1"})[0]
     $("#emoji-pair").html(currentTarget['emoji_pair'])
     currentTargetId = currentTarget['id']
-    setTimeout(pollEverything, 5000)
+    //setTimeout(pollEverything, 5000)
   })
   .fail(function() {
     alert( "error" );
