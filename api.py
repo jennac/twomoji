@@ -22,6 +22,7 @@ db = flask.ext.sqlalchemy.SQLAlchemy(app)
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.Unicode, unique=True)
+    points = db.Column(db.Integer)
     usertargets = db.relationship('UserTargets', backref=db.backref('users'))
 
 
@@ -95,7 +96,7 @@ class SubmissionSave(Resource):
     put_parser = reqparse.RequestParser()
     put_parser.add_argument('photo', required=True, type=str)
     put_parser.add_argument('user_id', required=True, type=int)
-    put_parser.add_argument('target_id', required=True, type=int)
+    put_parser.add_argument('target_id', required=False, type=int)
     put_parser.add_argument('score', required=False, type=int, default=0)
     put_parser.add_argument('description', required=False, type=str, default='')
 
@@ -107,13 +108,48 @@ class SubmissionSave(Resource):
 
         query = "INSERT INTO submissions (user_id, target_id, score, description, photo) VALUES ({}, {}, {}, '{}', '{}');".format(args['user_id'], args['target_id'], args['score'], args['description'], args['photo'])
         print query
-        try:
-            cur.execute(query)
-            con.commit()
-            return { 'success': True }
-        except:
-            return { 'success': False }
+        cur.execute(query)
+        con.commit()
 
+        user_count_sql = "SELECT COUNT(*) FROM submissions WHERE target_id = {};".format(args['target_id'])
+        cur.execute(user_count_sql)
+        user_count = int(cur.fetchone()[0])
+    
+        user_points_sql = "SELECT points FROM users WHERE id = {}".format(args['user_id'])
+        cur.execute(user_points_sql)
+        user_points = int(cur.fetchone()[0])
+        print 'THIS IS USER COUNT {}'.format(user_count)
+        print 'THIS IS USER COUNT {}'.format(user_points)
+        if user_count ==  1:
+            points = user_points + 945
+            print points
+            most_points = "UPDATE users SET points = {} WHERE id = {};".format(points, args['user_id'])
+            print most_points
+            cur.execute(most_points)
+            con.commit()
+        if user_count == 2:
+            points = user_points + 673
+            print points
+            more_points = "UPDATE users SET points = {} WHERE id = {};".format(points, args['user_id'])
+            print more_points
+            cur.execute(more_points)
+            con.commit()
+        if user_count == 3:
+            points = user_points + 1
+            print points
+            points_i_guess = "UPDATE users SET points = {} WHERE id = {};".format(points, args['user_id'])
+            cur.execute(points_i_guess)
+            con.commit()
+            next_round_one = "UPDATE targets SET status = 0 WHERE id={};".format(args['target_id'])
+            cur.execute(next_round_one)
+            print next_round_one
+            next_round_id = args['target_id'] + 1
+            next_round_two = "UPDATE targets SET status = 1 WHERE id={};".format(next_round_id)
+            cur.execute(next_round_two)
+            print next_round_two
+            con.commit()
+            
+        return { 'success': True }
 
 manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
 
@@ -129,3 +165,6 @@ api2.add_resource(UploadImage, '/photos')
 api2.add_resource(SubmissionSave, '/submission')
 
 app.run()
+
+## first person gets POINTZ
+## Add row to user targets
