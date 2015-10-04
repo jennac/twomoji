@@ -22,7 +22,7 @@ $(document).ready( function() {
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4 && xhr.status == 200) {
         // Handle response.
-        alert(xhr.responseText); // handle response.
+        console.log(xhr.responseText); // handle response.
       }
     };
     fd.append('image', file);

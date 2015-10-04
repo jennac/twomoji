@@ -74,18 +74,17 @@ class UploadImage(Resource):
         args = self.put_parser.parse_args()
         image = args['image']
 
-        print type(args['image'])
-
         # check logo extension
         #extension = image.filename.rsplit('.', 1)[1].lower()
         #if '.' in image.filename and not extension in app.config['ALLOWED_EXTENSIONS']:
         #    abort(400, message="File extension is not one of our supported types.")
 
         # create a file object of the image
-        image_file = StringIO()
-        image.save(image_file)
+        image_file = image.filename
+        path = os.path.join("/home/cjhin/www/chasjhin/twomoji/tmp/", image_file)
+        image.save(path)
 
-        #return {'logo_url': logo_url}
+        return {'file_path': path}
 
 manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
 
