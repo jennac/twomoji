@@ -14,4 +14,24 @@ $(document).ready( function() {
     fileReader.readAsDataURL(file);
   });
 
+  var apiUrl = "http://twomoji-api.chasjhin.com/api";
+  var targetUrl = apiUrl + "/targets";
+  var jqxhr = $.ajax({
+      url: targetUrl,
+      crossDomain: true
+    }
+  )
+  .done(function(data) {
+    // alert(data['objects'][0]['emoji_pair'])
+    var i = 0;
+    var targets = data['objects']
+    var currentTarget = $.grep(targets, function(e){return e['status'] == "1"})[0]
+    $("#emoji-pair").html(currentTarget['emoji_pair'])
+  })
+  .fail(function() {
+    alert( "error" );
+  })
+  .always(function() {
+  });
+
 });
