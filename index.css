@@ -59,6 +59,11 @@
   cursor: pointer;
 }
 
+#uploaded-img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
 .tm-logo {
   font-size: 5em;
   text-align: center;
