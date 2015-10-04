@@ -48,6 +48,8 @@ $(document).ready( function() {
         case "mary beth":
           $(user_pic_id_class).attr("src", "marybeth.jpg");
           break;
+        default:
+          break;
       }
       $(emoji_id_class).html(user_emojis)
     }
@@ -59,9 +61,9 @@ $(document).ready( function() {
   });
 
   // get users for the rankings
-  var targetUrl = apiUrl + "/users";
+  var usersUrl = apiUrl + "/users";
   var jqxhr = $.ajax({
-      url: targetUrl,
+      url: usersUrl,
       crossDomain: true
     }
   )
@@ -90,15 +92,14 @@ $(document).ready( function() {
     });
 
     for (var i = 0; i < tuples.length; i++) {
-        var username = tuples[i][0];
-        var points = tuples[i][1];
-
-        // do something with key and value
-        var id_prefix = "#user-" + (i+1) + "-place-"
-        $(id_prefix + "username").html(key)
-        $(id_prefix + "score").html(points)
-        var user_rank_id = id_prefix + "image"
-        switch (username) {
+      var username = tuples[i][0];
+      var points = tuples[i][1];
+      // do something with key and value
+      var id_prefix = "#user-" + (i+1) + "-place-"
+      $(id_prefix + "username").html(username)
+      $(id_prefix + "score").html(points)
+      var user_rank_id = id_prefix + "image"
+      switch (username) {
         case "jenna":
           $(user_rank_id).attr("src", "jenna.jpg");
           break;
@@ -117,12 +118,9 @@ $(document).ready( function() {
         case "mary beth":
           $(user_rank_id).attr("src", "marybeth.jpg");
           break;
+        default:
+          break;
       }
-      $(emoji_id_class).html(user_emojis)
     }
-    }
-
-  }
-
-
+  })
 });
