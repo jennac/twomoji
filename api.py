@@ -1,8 +1,11 @@
-import flask
+from flask import Flask, request, url_for, redirect, send_from_directory, render_template
 import flask.ext.sqlalchemy
 import flask.ext.restless
-
+from flask.ext.restful import Api as FlaskRestfulAPI, Resource, reqparse, abort
+import os
 import config
+from werkzeug import secure_filename, FileStorage
+
 
 app = flask.Flask(__name__)
 app.config['DEBUG'] = config.DEBUG
@@ -42,6 +45,42 @@ class UserTargets(db.Model):
 
 db.create_all()
 
+ALLOWED_EXTENSIONS = ['jpg', 'jpeg', 'png']
+FILE_CONTENT_TYPES = { # these will be used to set the content type of S3 object. It is binary by default.
+    'jpg': 'image/jpeg',
+    'jpeg': 'image/jpeg',
+    'png': 'image/png'
+}
+
+class FileStorageArgument(reqparse.Argument):
+    """This argument class for flask-restful will be used in
+    all cases where file uploads need to be handled."""
+    
+    def convert(self, value, op):
+        if self.type is FileStorage:
+            return value
+
+        super(FileStorageArgument, self).convert(*args, **kwargs)
+
+class UploadImage(Resource):
+    put_parser = reqparse.RequestParser(argument_class=FileStorageArgument)
+    put_parser.add_argument('image', required=True, type=FileStorage, location='files')
+
+    def post(self):
+        args = self.put_parser.parse_args()
+        image = args['image']
+
+        # check logo extension
+        extension = image.filename.rsplit('.', 1)[1].lower()
+        if '.' in image.filename and not extension in app.config['ALLOWED_EXTENSIONS']:
+            abort(400, message="File extension is not one of our supported types.")
+
+        # create a file object of the image
+        image_file = StringIO()
+        image.save(image_file)
+
+        return {'logo_url': logo_url}
+
 manager = flask.ext.restless.APIManager(app, flask_sqlalchemy_db=db)
 
 targets_includes = ['id', 'emoji_pair', 'weight', 'status', 'submissions']
@@ -50,5 +89,8 @@ users_includes = ['id', 'username', 'usertargets']
 manager.create_api(Users, include_columns=users_includes,  methods=['GET'])
 manager.create_api(Submissions, methods=['GET', 'POST'])
 manager.create_api(UserTargets, methods=['GET', 'POST', 'PATCH'])
+
+api2 = FlaskRestfulAPI(app)
+api2.add_resource(UploadImage, '/photos')
 
 app.run()

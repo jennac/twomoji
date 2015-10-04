@@ -1,5 +1,6 @@
 $(document).ready( function() {
-
+  var apiUrl = "http://twomoji-api.chasjhin.com/";
+  var targetUrl = apiUrl + "/api/targets";
   /* When the file is uploaded, put it on the screen,
   * TODO: send to server
   * */
@@ -10,12 +11,22 @@ $(document).ready( function() {
     fileReader.onload = function (event) {
       $("#uploaded-img").attr("src", event.target.result);
       $("#file-upload-text").text("");
+      var photoUrl = apiUrl + '/photos';
+      var jqxhr = $.ajax({
+	url: photoUrl,
+	type: 'POST',
+	data: {'image': event.target.result},
+	crossDomain: true
+      }).done(function(data){
+	  console.log(data);
+      });
+
     };
+
     fileReader.readAsDataURL(file);
   });
 
-  var apiUrl = "http://twomoji-api.chasjhin.com/api";
-  var targetUrl = apiUrl + "/targets";
+
   var jqxhr = $.ajax({
       url: targetUrl,
       crossDomain: true
