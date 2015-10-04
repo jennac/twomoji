@@ -15,7 +15,6 @@ function doPoll(){
     var targets = data['objects'];
     // set the current round emojis
     var currentTarget = $.grep(targets, function(e){return e['status'] == "1"})[0];
-    console.log(data)
     var currentRound = currentTarget['id'];
     $("currentRound").html("Round " + currentRound);
     $("#current-emoji-pair").html(currentTarget['emoji_pair']);
@@ -25,33 +24,36 @@ function doPoll(){
       var id_class = "round-" + (i + 1) + "-emojis";
       $("#" + id_class).html(target_emojis);
     }
-    var submissions = targets['submissions'];
-    console.log(submissions)
+    var submissions = currentTarget['submissions'];
     // set the submissions emoji each user
     // only will do top 5 cause only 5 images to update
+    var imagePrefix = "http://twomoji.chasjhin.com"
     for(i=0; i < submissions.length; i++) {
-      var user_emojis = submissions[i]['emoji_pair'];
+      var user_emojis = submissions[i]['photo'];
+      user_emojis = user_emojis.replace("/home/cjhin/www/chasjhin/twomoji","")
+      var imagePath = imagePrefix + user_emojis
       var emoji_id_class = "#user-" + (i + 1) + "-emojis";
-      $(emoji_id_class).html(user_emojis)
-      var username = targets[i]['username'];
+      $(emoji_id_class).attr("src", imagePath)
+      // $(emoji_id_class).html(imagePath)
+      var user_id = submissions[i]['user_id']
       var user_pic_id_class = "#user-" + (i + 1) + "-submission-pic";
-      switch (username) {
-        case "jenna":
+      switch (user_id) {
+        case 1:
           $(user_pic_id_class).attr("src", "jenna.jpg");
           break;
-        case "chas":
+        case 2:
           $(user_pic_id_class).attr("src", "chas.jpg");
           break;
-        case "jonathan":
+        case 3:
           $(user_pic_id_class).attr("src", "jonathan.jpg");
           break;
-        case "claire":
+        case 5:
           $(user_pic_id_class).attr("src", "claire.jpg");
           break;
-        case "jake":
+        case 6:
           $(user_pic_id_class).attr("src", "jake.jpg");
           break;
-        case "mary beth":
+        case 4:
           $(user_pic_id_class).attr("src", "marybeth.jpg");
           break;
         default:
@@ -111,7 +113,7 @@ function doPoll(){
         case "chas":
           $(user_rank_id).attr("src", "chas.jpg");
           break;
-        case "jonathan":
+        case "cobian":
           $(user_rank_id).attr("src", "jonathan.jpg");
           break;
         case "claire":
