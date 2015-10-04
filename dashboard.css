@@ -22,10 +22,16 @@
 
  h3 {
    color: #fff;
-   background-color: red;
+   background-color: #e55c3c;
+   margin: 10px;
+   padding: 10px;
+   border-radius: 10px;
+ }
+.inner-logo-div {
+   border-bottom: 4px solid #ffcd52;
+   margin:0 10%;
  }
 #logo {
-  width: 50%;
   height: 25%;
   display: block;
   margin: 0 auto;
@@ -33,4 +39,15 @@
 
 .round-emojis {
  font-size: 4em;
+}
+
+.emoji-wrapper {
+  margin-left: 40px;
+  margin-top: 20px;
+  border: 1px solid #AAA;
+  border-radius: 10px;
+}
+#current-emoji-pair {
+  font-size: 8em;
+  text-align: center;
 }
