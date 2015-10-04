@@ -32,8 +32,9 @@
   background-color: #999;
 }
 
-.left-emoji {
-  text-align: right;
+#emoji-pair {
+  text-align: center;
+  font-size: 12em;
 }
 
 .round-number {
