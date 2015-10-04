@@ -92,6 +92,7 @@ class UploadImage(Resource):
 
 from config import DB_HOST, DB_NAME, DB_USERNAME, DB_PASSWORD
 
+
 class SubmissionSave(Resource):
     put_parser = reqparse.RequestParser()
     put_parser.add_argument('photo', required=True, type=str)
